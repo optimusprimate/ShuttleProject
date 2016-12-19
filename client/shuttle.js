@@ -9,7 +9,9 @@ Template.locator.onCreated(function locatorOnCreated() {
     this.timeid = setTimeout(function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(pos) {
-                Template.instance().geoloc.set(pos);
+              pos = {type:'Point',coordinates:[pos.coords.latitude, pos.coords.longitude]};
+              Meteor.call('update.pos', 'shuttle', pos);
+              Template.instance().geoloc.set(pos);
             }, function(error) {
                 var errStr = "";
                 switch(error.code) {

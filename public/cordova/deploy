@@ -1,0 +1,2 @@
+zip zipfile ./www ./www/index.html 
+mv zipfile.zip ../__api__/appzip
