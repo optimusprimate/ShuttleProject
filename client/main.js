@@ -2,16 +2,30 @@ import { Template } from 'meteor/templating';
 import { ReactiveVar } from 'meteor/reactive-var';
 import { Locations } from '../shared/locations.js';
 
-import './shuttle.html';
+import './main.html';
+
+
+Router.configure({
+    layoutTemplate: 'layout'
+});
+
+Router.route('/', function () {
+  this.render('shuttle');
+});
+
+Router.route('/spectator', function () {
+  this.render('spectator');
+});
 
 Template.locator.onCreated(function locatorOnCreated() {
     this.geoloc = new ReactiveVar({});
-    this.timeid = setTimeout(function() {
+    var _geoloc = this.geoloc;
+    this.timeid = setInterval(function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(pos) {
               pos = {type:'Point',coordinates:[pos.coords.latitude, pos.coords.longitude]};
               Meteor.call('update.pos', 'shuttle', pos);
-              Template.instance().geoloc.set(pos);
+              _geoloc.set(pos);
             }, function(error) {
                 var errStr = "";
                 switch(error.code) {
