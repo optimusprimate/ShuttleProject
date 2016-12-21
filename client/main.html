@@ -2,31 +2,24 @@
   <title>Shuttle Spectator</title>
   <link rel="manifest" href="/manifesto.json">
   <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async></script>
-  <script>
-    var OneSignal = window.OneSignal || [];
-    OneSignal.push(["init", {
-      appId: "bca68e0e-2b2b-4270-82e0-e254e9e2069a",
-      autoRegister: false,
-      notifyButton: {
-        enable: true /* Set to false to hide */
-      }
-    }]);
-  </script>
 </head>
 
 <template name="layout">
     {{> yield}} 
 </template>
 
-<template name="locator">
+<template name="locationDisplay">
   <p>Location: {{location}}</p>
 </template>
 
 <template name="shuttle">
-  {{> locator}}
+  <h1>Shuttle</h1>
+  {{> locationDisplay}}
 </template>
 
 <template name="spectator">
   <h1>Spectator</h1>
+  {{> locationDisplay}}
+  <button>Update location</button>
 </template>
 
